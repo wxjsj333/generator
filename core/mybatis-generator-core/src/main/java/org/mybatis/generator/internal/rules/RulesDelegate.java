@@ -140,6 +140,11 @@ public class RulesDelegate implements Rules {
     }
 
     @Override
+    public boolean generateSelectAllSelective() {
+        return rules.generateSelectAllSelective();
+    }
+
+    @Override
     public boolean generateSQLExampleWhereClause() {
         return rules.generateSQLExampleWhereClause();
     }

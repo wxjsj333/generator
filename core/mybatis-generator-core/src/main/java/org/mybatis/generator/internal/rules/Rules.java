@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -173,6 +173,15 @@ public interface Rules {
      * @return true if the element and method should be generated
      */
     boolean generateSelectByPrimaryKey();
+
+    /**
+     * 根据对象值查询列表
+     * @author: wangXin
+     * @date: 2019-06-28 17:03
+     *
+     * @return boolean
+     */
+    boolean generateSelectAllSelective();
 
     /**
      * Implements the rule for generating the select by example without BLOBs

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,16 +15,6 @@
  */
 package org.mybatis.generator.api;
 
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.config.GeneratedKey;
 import org.mybatis.generator.config.JavaClientGeneratorConfiguration;
@@ -38,6 +28,16 @@ import org.mybatis.generator.internal.rules.ConditionalModelRules;
 import org.mybatis.generator.internal.rules.FlatModelRules;
 import org.mybatis.generator.internal.rules.HierarchicalModelRules;
 import org.mybatis.generator.internal.rules.Rules;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
 /**
  * Base class for all code generator implementations. This class provides many
@@ -78,6 +78,7 @@ public abstract class IntrospectedTable {
         ATTR_INSERT_STATEMENT_ID,
         ATTR_INSERT_SELECTIVE_STATEMENT_ID,
         ATTR_SELECT_ALL_STATEMENT_ID,
+        ATTR_SELECT_ALL_SELECTIVE_STATEMENT_ID,
         ATTR_SELECT_BY_EXAMPLE_STATEMENT_ID,
         ATTR_SELECT_BY_EXAMPLE_WITH_BLOBS_STATEMENT_ID,
         ATTR_SELECT_BY_PRIMARY_KEY_STATEMENT_ID,
@@ -532,6 +533,7 @@ public abstract class IntrospectedTable {
         setInsertStatementId("insert"); //$NON-NLS-1$
         setInsertSelectiveStatementId("insertSelective"); //$NON-NLS-1$
         setSelectAllStatementId("selectAll"); //$NON-NLS-1$
+        setSelectAllSelectiveStatementId("selectAllSelective"); //$NON-NLS-1$
         setSelectByExampleStatementId("selectByExample"); //$NON-NLS-1$
         setSelectByExampleWithBLOBsStatementId("selectByExampleWithBLOBs"); //$NON-NLS-1$
         setSelectByPrimaryKeyStatementId("selectByPrimaryKey"); //$NON-NLS-1$
@@ -628,6 +630,11 @@ public abstract class IntrospectedTable {
     public void setSelectAllStatementId(String s) {
         internalAttributes.put(
                 InternalAttribute.ATTR_SELECT_ALL_STATEMENT_ID, s);
+    }
+
+    public void setSelectAllSelectiveStatementId(String s) {
+        internalAttributes.put(
+                InternalAttribute.ATTR_SELECT_ALL_SELECTIVE_STATEMENT_ID, s);
     }
 
     public void setSelectByExampleStatementId(String s) {
@@ -732,6 +739,11 @@ public abstract class IntrospectedTable {
     public String getSelectAllStatementId() {
         return internalAttributes
                 .get(InternalAttribute.ATTR_SELECT_ALL_STATEMENT_ID);
+    }
+
+    public String getSelectAllSelectiveStatementId() {
+        return internalAttributes
+                .get(InternalAttribute.ATTR_SELECT_ALL_SELECTIVE_STATEMENT_ID);
     }
 
     public String getSelectByExampleStatementId() {

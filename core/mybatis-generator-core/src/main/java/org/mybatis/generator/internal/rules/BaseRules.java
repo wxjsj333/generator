@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ public abstract class BaseRules implements Rules {
             return false;
         }
 
-        return tableConfiguration.isInsertStatementEnabled();
+        return tableConfiguration.isInsertSelectiveStatementEnabled();
     }
 
     /**
@@ -169,7 +169,7 @@ public abstract class BaseRules implements Rules {
             return false;
         }
 
-        boolean rc = tableConfiguration.isUpdateByPrimaryKeyStatementEnabled()
+        boolean rc = tableConfiguration.isUpdateByPrimaryKeySelectiveStatementEnabled()
                 && introspectedTable.hasPrimaryKeyColumns()
                 && (introspectedTable.hasBLOBColumns() || introspectedTable
                         .hasBaseColumns());
@@ -322,6 +322,20 @@ public abstract class BaseRules implements Rules {
         }
 
         boolean rc = tableConfiguration.isSelectByPrimaryKeyStatementEnabled()
+                && introspectedTable.hasPrimaryKeyColumns()
+                && (introspectedTable.hasBaseColumns() || introspectedTable
+                        .hasBLOBColumns());
+
+        return rc;
+    }
+
+    @Override
+    public boolean generateSelectAllSelective() {
+        if (isModelOnly) {
+            return false;
+        }
+
+        boolean rc = tableConfiguration.isSelectAllSelectiveStatementEnabled()
                 && introspectedTable.hasPrimaryKeyColumns()
                 && (introspectedTable.hasBaseColumns() || introspectedTable
                         .hasBLOBColumns());

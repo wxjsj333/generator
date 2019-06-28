@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,21 +15,19 @@
  */
 package org.mybatis.generator.config;
 
-import static org.mybatis.generator.internal.util.EqualsUtil.areEqual;
-import static org.mybatis.generator.internal.util.HashCodeUtil.SEED;
-import static org.mybatis.generator.internal.util.HashCodeUtil.hash;
-import static org.mybatis.generator.internal.util.StringUtility.composeFullyQualifiedTableName;
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
+import org.mybatis.generator.api.dom.xml.Attribute;
+import org.mybatis.generator.api.dom.xml.XmlElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.generator.api.dom.xml.Attribute;
-import org.mybatis.generator.api.dom.xml.XmlElement;
+import static org.mybatis.generator.internal.util.EqualsUtil.areEqual;
+import static org.mybatis.generator.internal.util.HashCodeUtil.SEED;
+import static org.mybatis.generator.internal.util.HashCodeUtil.hash;
+import static org.mybatis.generator.internal.util.StringUtility.*;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * The Class TableConfiguration.
@@ -39,12 +37,15 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 public class TableConfiguration extends PropertyHolder {
 
     private boolean insertStatementEnabled;
+    private boolean insertSelectiveStatementEnabled;
 
     private boolean selectByPrimaryKeyStatementEnabled;
+    private boolean selectAllSelectiveStatementEnabled;
 
     private boolean selectByExampleStatementEnabled;
 
     private boolean updateByPrimaryKeyStatementEnabled;
+    private boolean updateByPrimaryKeySelectiveStatementEnabled;
 
     private boolean deleteByPrimaryKeyStatementEnabled;
 
@@ -102,9 +103,12 @@ public class TableConfiguration extends PropertyHolder {
         ignoredColumns = new HashMap<IgnoredColumn, Boolean>();
 
         insertStatementEnabled = true;
+        insertSelectiveStatementEnabled = true;
         selectByPrimaryKeyStatementEnabled = true;
+        selectAllSelectiveStatementEnabled = true;
         selectByExampleStatementEnabled = true;
         updateByPrimaryKeyStatementEnabled = true;
+        updateByPrimaryKeySelectiveStatementEnabled = true;
         deleteByPrimaryKeyStatementEnabled = true;
         deleteByExampleStatementEnabled = true;
         countByExampleStatementEnabled = true;
@@ -120,6 +124,13 @@ public class TableConfiguration extends PropertyHolder {
         this.deleteByPrimaryKeyStatementEnabled = deleteByPrimaryKeyStatementEnabled;
     }
 
+    public boolean isInsertSelectiveStatementEnabled() {
+        return insertSelectiveStatementEnabled;
+    }
+
+    public void setInsertSelectiveStatementEnabled(boolean insertSelectiveStatementEnabled) {
+        this.insertSelectiveStatementEnabled = insertSelectiveStatementEnabled;
+    }
     public boolean isInsertStatementEnabled() {
         return insertStatementEnabled;
     }
@@ -127,6 +138,7 @@ public class TableConfiguration extends PropertyHolder {
     public void setInsertStatementEnabled(boolean insertStatementEnabled) {
         this.insertStatementEnabled = insertStatementEnabled;
     }
+
 
     public boolean isSelectByPrimaryKeyStatementEnabled() {
         return selectByPrimaryKeyStatementEnabled;
@@ -137,6 +149,15 @@ public class TableConfiguration extends PropertyHolder {
         this.selectByPrimaryKeyStatementEnabled = selectByPrimaryKeyStatementEnabled;
     }
 
+    public boolean isSelectAllSelectiveStatementEnabled() {
+        return selectAllSelectiveStatementEnabled;
+    }
+
+    public void setSelectAllSelectiveStatementEnabled(
+            boolean selectAllSelectiveStatementEnabled) {
+        this.selectAllSelectiveStatementEnabled = selectAllSelectiveStatementEnabled;
+    }
+
     public boolean isUpdateByPrimaryKeyStatementEnabled() {
         return updateByPrimaryKeyStatementEnabled;
     }
@@ -144,6 +165,14 @@ public class TableConfiguration extends PropertyHolder {
     public void setUpdateByPrimaryKeyStatementEnabled(
             boolean updateByPrimaryKeyStatementEnabled) {
         this.updateByPrimaryKeyStatementEnabled = updateByPrimaryKeyStatementEnabled;
+    }
+    public boolean isUpdateByPrimaryKeySelectiveStatementEnabled() {
+        return updateByPrimaryKeySelectiveStatementEnabled;
+    }
+
+    public void setUpdateByPrimaryKeySelectiveStatementEnabled(
+            boolean updateByPrimaryKeySelectiveStatementEnabled) {
+        this.updateByPrimaryKeySelectiveStatementEnabled = updateByPrimaryKeySelectiveStatementEnabled;
     }
 
     public boolean isColumnIgnored(String columnName) {
